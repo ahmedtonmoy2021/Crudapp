@@ -1,13 +1,17 @@
-import express from 'express'
-const router = express.Router()
-// Set default API response
-router.get('/', function (req, res) {
-res.json({
-status: 'API is Working',
-message: 'Welcome to my REST API!'
+import express from "express";
+import { login, admin } from "../Controller/userController.js";
+import { verifyToken } from "../config/auth.config.js"; 
+
+const router = express.Router();
+
+router.get("/", (req, res) => {
+  res.json({
+    status: "API is Working",
+    message: "Welcome to my REST API!",
+  });
 });
-});
-// Import controllers here
-// define routes here
-// Export API routes. As it is the only export, we make it the default.
+
+router.post("/login", login);
+router.get("/admin", verifyToken, admin);
+
 export default router;
