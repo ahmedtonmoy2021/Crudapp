@@ -4,6 +4,13 @@ import User from "../models/productModel.js";
 import Bcrypt from "bcryptjs";
 console.log("JWT Secret Key:", config.secret); // Debugging line
 
+export const hashPassword = function(password){
+    //needed for web token authentication
+    const saltRounds=10;
+    return Bcrypt.hashSync(password, saltRounds)
+    } 
+
+    
 export const login = function(req,res){
     User.findOne({username:req.body.username}, function(err,user){
     if(err){
